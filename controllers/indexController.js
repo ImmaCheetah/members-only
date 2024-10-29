@@ -17,7 +17,13 @@ const validateUser = [
     .isLength({min: 1, max: 30}).withMessage(`Last name ${lengthErr}`),
     body('email').trim()
     .isEmail().withMessage(`Email ${emailErr}`)
-    .isLength({min: 1, max: 30}),
+    .isLength({min: 1, max: 30})
+    .custom(async value => {
+        const user = await db.findUserByEmail(value);
+        if (user) {
+          throw new Error('E-mail already in use');
+        }
+    }),
     body('password').trim()
     .isStrongPassword().withMessage('Does not meet password requirements')
     .isLength({min: 1, max: 30}),
