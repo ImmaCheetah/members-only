@@ -8,7 +8,7 @@ first_name VARCHAR (25) NOT NULL,
 last_name VARCHAR (30) NOT NULL,
 email VARCHAR (30) NOT NULL UNIQUE,
 password VARCHAR (30) NOT NULL,
-is_member BOOLEAN
+is_member BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE IF NOT EXISTS messages (                                        

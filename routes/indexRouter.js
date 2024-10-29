@@ -4,4 +4,6 @@ const indexRouter = Router();
 
 indexRouter.get('/', indexController.getIndexPage)
 
+indexRouter.post('/', indexController.createUserPost)
+
 module.exports = indexRouter;
