@@ -9,16 +9,23 @@
     <form action="/" method="POST">
         <h1>hello</h1>
         <label for="firstName">First name:</label>
-        <input type="text" name="firstName">
+        <input type="text" name="firstName" required>
         <label for="lastName">Last name:</label>
-        <input type="text" name="lastName">
+        <input type="text" name="lastName" required>
         <label for="email">Email:</label>
-        <input type="email" name="email">
+        <input type="email" name="email" required>
         <label for="password">Password:</label>
-        <input type="password" name="password" id="password">
+        <input type="password" name="password" id="password" required>
         <label for="confirmPassword">Confirm Password:</label>
-        <input type="password" name="confirmPassword" id="confirmPassword">
+        <input type="password" name="confirmPassword" id="confirmPassword" required>
         <button type="submit">Submit</button>
+        <% if (locals.errors) {%>
+            <ul>
+                <% errors.forEach(function(error) { %>
+                <li><%= error.msg %></li>
+                <% }); %>
+            </ul>
+        <% } %>
     </form>
 </body>
 </html>

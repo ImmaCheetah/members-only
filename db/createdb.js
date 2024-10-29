@@ -4,7 +4,7 @@ const { Client } = require("pg");
 const SQL = `
 CREATE TABLE IF NOT EXISTS users (                                        
 user_id INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY UNIQUE,
-first_name VARCHAR (25) NOT NULL,
+first_name VARCHAR (30) NOT NULL,
 last_name VARCHAR (30) NOT NULL,
 email VARCHAR (30) NOT NULL UNIQUE,
 password VARCHAR (30) NOT NULL,
