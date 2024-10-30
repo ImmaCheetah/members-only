@@ -26,7 +26,7 @@ const validateUser = [
     //     }
     // }),
     body('password').trim()
-    .isStrongPassword().withMessage('Does not meet password requirements')
+    .isStrongPassword().withMessage('Password does not meet strength requirements')
     .isLength({min: 1, max: 30}),
     body('confirmPassword').custom((value, { req }) => {
         return value === req.body.password;
@@ -45,12 +45,17 @@ async function createUserPost(req, res, next) {
         const {firstName, lastName, email, password} = req.body;
         const errors = validationResult(req);
 
+        // check for errors and render page 
+        // with errors and name fields
         if (!errors.isEmpty()) {
             return res
             .status(400)
             .render('sign-up', {
                 param: req.params,
-                title: 'Sign Up',  
+                title: 'Sign Up',
+                firstName: firstName,
+                lastName: lastName,
+                email: email,  
                 errors: errors.array()
             })
         }

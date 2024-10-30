@@ -9,11 +9,11 @@
     <form action="/" method="POST">
         <h1>hello</h1>
         <label for="firstName">First name:</label>
-        <input type="text" name="firstName" required>
+        <input type="text" name="firstName" required value="<%= locals.firstName %>">
         <label for="lastName">Last name:</label>
-        <input type="text" name="lastName" required>
+        <input type="text" name="lastName" required value="<%= locals.lastName %>">
         <label for="email">Email:</label>
-        <input type="email" name="email" required>
+        <input type="email" name="email" required value="<%= locals.email %>">
         <label for="password">Password:</label>
         <input type="password" name="password" id="password" required>
         <label for="confirmPassword">Confirm Password:</label>
