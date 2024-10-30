@@ -1,4 +1,5 @@
 const db = require('../db/queries');
+const bcrypt = require('bcryptjs');
 
 const { body, validationResult } = require("express-validator");
 
@@ -17,13 +18,13 @@ const validateUser = [
     .isLength({min: 1, max: 30}).withMessage(`Last name ${lengthErr}`),
     body('email').trim()
     .isEmail().withMessage(`Email ${emailErr}`)
-    .isLength({min: 1, max: 30})
-    .custom(async value => {
-        const user = await db.findUserByEmail(value);
-        if (user) {
-          throw new Error('E-mail already in use');
-        }
-    }),
+    .isLength({min: 1, max: 30}),
+    // .custom(async value => {
+    //     const user = await db.findUserByEmail(value);
+    //     if (user) {
+    //       throw new Error('E-mail already in use');
+    //     }
+    // }),
     body('password').trim()
     .isStrongPassword().withMessage('Does not meet password requirements')
     .isLength({min: 1, max: 30}),
@@ -53,11 +54,23 @@ async function createUserPost(req, res, next) {
                 errors: errors.array()
             })
         }
-        await db.createUser(firstName, lastName, email, password);
+
+        bcrypt.hash(password, 10, async (err, hashedPassword) => {
+            // if err, do something
+            if (err) {
+                console.log('error happened hashing')
+            } else {
+                // otherwise, store hashedPassword in DB
+                await db.createUser(firstName, lastName, email, hashedPassword);
+                console.log('password hashed');
+            }
+        });
+
         res.redirect('/');
     } catch (error) {
         next(error);
     }
+
 }
 
 module.exports = {

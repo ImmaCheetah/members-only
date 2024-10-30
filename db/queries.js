@@ -7,7 +7,7 @@ async function createUser(firstName, lastName, email, password) {
             VALUES ($1, $2, $3, $4)`, [firstName, lastName, email, password]
         )
     } catch (error) {
-        next(error)
+        console.log(error)
     }
 }
 
