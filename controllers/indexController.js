@@ -6,7 +6,7 @@ const { body, validationResult } = require("express-validator");
 const alphaErr = 'must contain only letters'
 const lengthErr = 'must contain between 1 and 30 characters'
 const emailErr = 'must be in correct format'
-const  passwordErr = 'must contain:'
+const passwordErr = 'must contain:'
 
 
 const validateUser = [
@@ -37,7 +37,8 @@ const validateUser = [
 ]
 
 function getIndexPage(req, res, next) {
-    res.render('sign-up')
+    console.log(req.session)
+    res.render('sign-up', { user: req.user })
 }
 
 function getLogin(req, res, next) {
@@ -79,7 +80,7 @@ async function createUserPost(req, res, next) {
             }
         });
 
-        res.redirect('/');
+        res.redirect('/login');
     } catch (error) {
         next(error);
     }
