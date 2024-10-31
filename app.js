@@ -14,6 +14,7 @@ const assetsPath = path.join(__dirname, "/public");
 
 // Routers
 const indexRouter = require('./routes/indexRouter')
+const messageRouter = require('./routes/messageRouter')
 
 app.set("views", path.join(__dirname, "views/pages"));
 app.set("view engine", "ejs");

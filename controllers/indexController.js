@@ -40,6 +40,14 @@ function getIndexPage(req, res, next) {
     res.render('sign-up')
 }
 
+function getLogin(req, res, next) {
+    res.render('login')
+}
+
+function getBecomeMember(req, res, next) {
+    res.render('membership')
+}
+
 async function createUserPost(req, res, next) {
     try {
         const {firstName, lastName, email, password} = req.body;
@@ -80,6 +88,8 @@ async function createUserPost(req, res, next) {
 
 module.exports = {
     getIndexPage,
+    getLogin,
+    getBecomeMember,
     createUserPost,
     validateUser,
 }
