@@ -8,10 +8,11 @@ indexRouter.get('/', indexController.getIndexPage)
 indexRouter.get('/login', indexController.getLogin)
 indexRouter.get('/become-member', indexController.getBecomeMember)
 
+
 indexRouter.post('/', validateUser, indexController.createUserPost)
 indexRouter.post('/login', passport.authenticate("local", {
-  failureRedirect: "/become-member",
-  successRedirect: "/"
+  failureRedirect: "/login",
+  successRedirect: "/messages"
 }))
 
 module.exports = indexRouter;
