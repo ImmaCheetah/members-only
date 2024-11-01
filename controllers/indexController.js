@@ -37,12 +37,20 @@ const validateUser = [
 ]
 
 function getIndexPage(req, res, next) {
-    console.log(req.session)
     res.render('sign-up', { user: req.user })
 }
 
 function getLogin(req, res, next) {
     res.render('login')
+}
+
+function getLogout(req, res, next) {
+    req.logout((err) => {
+        if (err) {
+          return next(err);
+        }
+        res.redirect("/");
+      });
 }
 
 function getBecomeMember(req, res, next) {
@@ -90,6 +98,7 @@ async function createUserPost(req, res, next) {
 module.exports = {
     getIndexPage,
     getLogin,
+    getLogout,
     getBecomeMember,
     createUserPost,
     validateUser,

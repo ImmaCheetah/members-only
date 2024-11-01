@@ -26,13 +26,6 @@ const verifyCallback = async (username, password, done) => {
       // passwords do not match!
       return done(null, false, { message: "Incorrect password" })
     }
-    // const isValid = validatePassword(password, user.hash, user.salt);
-
-    // if (isValid) {
-    //     return done(null, user);
-    // } else {
-    //     return done(null, false);
-    // }
 
   } catch (error) {   
       return done(error)
