@@ -15,5 +15,6 @@ indexRouter.post('/login', passport.authenticate("local", {
   failureRedirect: "/login",
   successRedirect: "/messages"
 }))
+indexRouter.post('/become-member', indexController.addMemberRole)
 
 module.exports = indexRouter;

@@ -1,6 +1,6 @@
 
 function getMessages(req, res, next) {
-  res.render('messages');
+  res.render('messages', { user: req.user });
 }
 
 module.exports = {

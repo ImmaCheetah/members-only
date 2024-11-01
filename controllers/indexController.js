@@ -55,6 +55,21 @@ function getLogout(req, res, next) {
 
 function getBecomeMember(req, res, next) {
     res.render('membership')
+    console.log(res.body);
+}
+
+async function addMemberRole(req, res, next) {
+    const membershipPwd = process.env.MEMBER_PWD;
+
+    console.log('password from form',req.body.memberPwd)
+
+    if (req.body.memberPwd === membershipPwd) {
+        console.log('member password correct')
+        await db.updateRoleToMember(req.user.user_id);
+        res.redirect('messages')
+    } else {
+        console.log('wrong membership password')
+    }
 }
 
 async function createUserPost(req, res, next) {
@@ -100,6 +115,7 @@ module.exports = {
     getLogin,
     getLogout,
     getBecomeMember,
+    addMemberRole,
     createUserPost,
     validateUser,
 }
