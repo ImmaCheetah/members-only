@@ -6,11 +6,20 @@
     <title>Membership</title>
 </head>
 <body>
-    <form action="/become-member" method="POST">
+    <form action="/change-role" method="POST">
         <h1>Become member</h1>
-        <label for="memberPwd">Membership Password:</label>
-        <input type="password" name="memberPwd" id="memberPwd">
+        <fieldset>
+            <input type="radio" name="role" value="member" checked>
+            <label for="member">Member</label>
+            <input type="radio" name="role" value="admin">
+            <label for="admin">Admin</label>
+        </fieldset>
+        <label for="rolePassword">Membership Password:</label>
+        <input type="password" name="rolePassword" id="rolePassword">
         <button type="submit">Submit</button>
+        <% if (locals.error) { %>
+            <p><%= error %></p>
+        <% } %>
     </form>
 </body>
 </html>

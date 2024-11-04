@@ -6,7 +6,7 @@ const { body, validationResult } = require("express-validator");
 const alphaErr = 'must contain only letters'
 const lengthErr = 'must contain between 1 and 30 characters'
 const emailErr = 'must be in correct format'
-const passwordErr = 'must contain:'
+const rolePasswordErr = 'Wrong password'
 
 
 const validateUser = [
@@ -31,7 +31,7 @@ const validateUser = [
     body('confirmPassword').custom((value, { req }) => {
         return value === req.body.password;
       }).withMessage(`Passwords don't match`),
-    // body('').trim()
+    // body('rolePassword').trim()
     // .isAlpha().withMessage()
     // .isLength({min: 1, max: 30}),
 ]
@@ -59,16 +59,20 @@ function getBecomeMember(req, res, next) {
 }
 
 async function addMemberRole(req, res, next) {
-    const membershipPwd = process.env.MEMBER_PWD;
+    const memberPassword = process.env.MEMBER_PWD;
+    const adminPassword = process.env.ADMIN_PWD;  
 
-    console.log('password from form',req.body.memberPwd)
-
-    if (req.body.memberPwd === membershipPwd) {
-        console.log('member password correct')
-        await db.updateRoleToMember(req.user.user_id);
+    console.log('PASSWORD IN FORM AND ID', req.body.rolePassword, req.user.user_id)
+    console.log('MEMBER RADIO', req.body.role)
+    if (req.body.role === 'member' && req.body.rolePassword === memberPassword) {
+        await db.updateRole(req.user.user_id, 'member');
+        res.redirect('messages')
+    } else if (req.body.role === 'admin' && req.body.rolePassword === adminPassword) {
+        await db.updateRole(req.user.user_id, 'admin');
         res.redirect('messages')
     } else {
         console.log('wrong membership password')
+        res.render('membership', {error: 'Wrong password'})
     }
 }
 

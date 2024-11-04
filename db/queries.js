@@ -18,10 +18,10 @@ async function findUserByEmail(email) {
     return rows;
 }
 
-async function updateRoleToMember(userId) {
+async function updateRole(userId, newRole) {
     try {
         await pool.query(
-            `UPDATE users SET user_role = 'member' WHERE user_id = $1`, [userId]
+            `UPDATE users SET user_role = $1 WHERE user_id = $2`, [newRole, userId]
         )
     } catch (error) {
         console.log(error);
@@ -31,7 +31,7 @@ async function updateRoleToMember(userId) {
 async function getAllMessages() {
     try {
         const {rows} = await pool.query(
-            `SELECT first_name, title, text, timestamp, is_member FROM messages 
+            `SELECT first_name, title, text, timestamp, user_role, messages.message_id FROM messages 
             JOIN users_messages ON messages.message_id = users_messages.message_id
             JOIN users ON users_messages.user_id = users.user_id`
         )
@@ -64,10 +64,21 @@ async function postMessage(title, message, userIdFromUser) {
     }
 }
 
+async function deleteMessage(messageId) {
+    try {
+        await pool.query(
+            `DELETE FROM messages WHERE message_id = $1`, [messageId]
+        )
+    } catch (error) {
+        console.log(error);
+    }    
+}
+
 module.exports = {
     createUser,
     findUserByEmail,
-    updateRoleToMember,
+    updateRole,
     getAllMessages,
-    postMessage
+    postMessage,
+    deleteMessage
 }

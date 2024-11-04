@@ -6,7 +6,7 @@ const indexRouter = Router();
 
 indexRouter.get('/', indexController.getIndexPage)
 indexRouter.get('/login', indexController.getLogin)
-indexRouter.get('/become-member', indexController.getBecomeMember)
+indexRouter.get('/change-role', indexController.getBecomeMember)
 indexRouter.get('/logout', indexController.getLogout)
 
 
@@ -15,6 +15,6 @@ indexRouter.post('/login', passport.authenticate("local", {
   failureRedirect: "/login",
   successRedirect: "/messages"
 }))
-indexRouter.post('/become-member', indexController.addMemberRole)
+indexRouter.post('/change-role', indexController.addMemberRole)
 
 module.exports = indexRouter;
