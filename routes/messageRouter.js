@@ -1,9 +1,10 @@
 const { Router } = require("express");
 const messageController = require('../controllers/messageController');
+const { isAuth } = require("../helper/authMiddleware");
 const messageRouter = Router();
 
-messageRouter.get('/', messageController.getMessages)
-messageRouter.get('/new-message', messageController.getCreateMessage)
+messageRouter.get('/', isAuth, messageController.getMessages)
+messageRouter.get('/new-message', isAuth, messageController.getCreateMessage)
 
 messageRouter.post('/new-message', messageController.postCreateMessage)
 

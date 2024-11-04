@@ -31,7 +31,7 @@ async function updateRoleToMember(userId) {
 async function getAllMessages() {
     try {
         const {rows} = await pool.query(
-            `SELECT first_name, title, text, timestamp FROM messages 
+            `SELECT first_name, title, text, timestamp, is_member FROM messages 
             JOIN users_messages ON messages.message_id = users_messages.message_id
             JOIN users ON users_messages.user_id = users.user_id`
         )

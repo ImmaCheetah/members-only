@@ -10,10 +10,17 @@
     <h1>Messages here</h1>
     <% messages.forEach(message => { %>
       <article class="message-div">
-        <p><%= message.first_name %></p>
+        <p>
+          <% if (locals.user.is_member) { %>
+            <%= message.first_name %>
+            <%= message.timestamp %>
+          <% } else { %>
+            Anonymous
+          <% } %> 
+        </p>
         <p><%= message.title %></p>
         <p><%= message.text %></p>
-        <p><%= message.timestamp %></p>
+        <p><%= message.is_member %></p>
       </article>
     <% }) %>
     <% if (locals.user) {%>
