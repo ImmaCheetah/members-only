@@ -28,9 +28,22 @@ async function updateRoleToMember(userId) {
     }
 }
 
+async function getAllMessages() {
+    try {
+        const {rows} = await pool.query(
+            `SELECT first_name, title, text, timestamp FROM messages 
+            JOIN users_messages ON messages.message_id = users_messages.message_id
+            JOIN users ON users_messages.user_id = users.user_id`
+        )
+        return rows;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 async function postMessage(title, message, userIdFromUser) {
     try {
-        // await pool.query('BEGIN')
+        await pool.query('BEGIN')
 
         const messageId = await pool.query(
             `INSERT INTO messages (title, text) VALUES ($1, $2) RETURNING message_id`, [title, message]
@@ -45,7 +58,7 @@ async function postMessage(title, message, userIdFromUser) {
             `INSERT INTO users_messages (user_id, message_id) VALUES ($1, $2)`, [userId.rows[0].user_id, messageId.rows[0].message_id]
         )
 
-        // await pool.query('COMMIT')
+        await pool.query('COMMIT')
     } catch (error) {
         console.log(error);
     }
@@ -55,5 +68,6 @@ module.exports = {
     createUser,
     findUserByEmail,
     updateRoleToMember,
+    getAllMessages,
     postMessage
 }

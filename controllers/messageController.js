@@ -1,7 +1,13 @@
 const db = require('../db/queries');
 
-function getMessages(req, res, next) {
-  res.render('messages', { user: req.user });
+async function getMessages(req, res, next) {
+  try {
+    const messages = await db.getAllMessages();
+
+    res.render('messages', { user: req.user, messages: messages });
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 function getCreateMessage(req, res, next) {
