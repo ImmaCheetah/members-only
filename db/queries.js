@@ -21,7 +21,7 @@ async function findUserByEmail(email) {
 async function updateRoleToMember(userId) {
     try {
         await pool.query(
-            `UPDATE users SET is_member = 't' WHERE user_id = $1`, [userId]
+            `UPDATE users SET user_role = 'member' WHERE user_id = $1`, [userId]
         )
     } catch (error) {
         console.log(error);

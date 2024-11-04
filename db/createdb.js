@@ -2,13 +2,15 @@ require("dotenv").config();
 const { Client } = require("pg");
 
 const SQL = `
+CREATE TYPE role AS ENUM ('user', 'member', 'admin');
+
 CREATE TABLE IF NOT EXISTS users (                                        
 user_id INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY UNIQUE,
 first_name VARCHAR (30) NOT NULL,
 last_name VARCHAR (30) NOT NULL,
 email VARCHAR (30) NOT NULL UNIQUE,
 password VARCHAR (255) NOT NULL,
-is_member BOOLEAN DEFAULT FALSE
+user_role role DEFAULT 'user'
 );
 
 CREATE TABLE IF NOT EXISTS messages (                                        
