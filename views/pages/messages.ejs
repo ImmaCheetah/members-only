@@ -7,7 +7,7 @@
     <title>Messages</title>
 </head>
 <body>
-    <% if (messages) { %>
+    <% if (messages && messages.length > 0) { %>
       <h1>Messages</h1>  
       <% messages.forEach(message => { %>
         <article class="message-div">
@@ -24,7 +24,7 @@
           <p><%= message.user_role %></p>
           <p><%= message.message_id %></p>
           <% if (locals.user.user_role === 'admin') { %>
-           <form action="/delete/<%= message.message_id %>" method="POST">
+           <form action="messages/delete/<%= message.message_id %>" method="POST">
             <button type="submit">Delete</button>
            </form>
           <% } %>

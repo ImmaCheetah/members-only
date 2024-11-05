@@ -9,7 +9,6 @@ const session = require('express-session');
 const passport = require('passport');
 const path = require("node:path");
 const pool = require('./db/pool');
-const bodyParser = require('body-parser');
 const LocalStrategy = require('passport-local').Strategy;
 const pgStore = require('connect-pg-simple')(session);
 
@@ -40,7 +39,6 @@ app.use(session({
 }))
 
 app.use(passport.session());
-// app.use(express.bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(assetsPath));
 

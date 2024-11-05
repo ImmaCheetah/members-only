@@ -28,12 +28,14 @@ async function postCreateMessage(req, res, next) {
 }
 
 async function postDeleteMessage(req, res, next) {
+  console.log('delete controller reached')
   try {
+    console.log('MESSAGE ID', req.params.messageId)
     const {messageId} = req.params;
     await db.deleteMessage(messageId);
-    console.log('MESSAGE ID', req.params.messageId)
+    res.redirect('/messages')
   } catch (error) {
-    console.log(error)
+    console.log('delete error', error)
   }
 }
 

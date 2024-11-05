@@ -25,7 +25,7 @@ id INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY UNIQUE,
 user_id INTEGER NOT NULL,
 message_id INT NOT NULL,
 CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(user_id),
-CONSTRAINT fk_message FOREIGN KEY (message_id) REFERENCES messages(message_id)
+CONSTRAINT fk_message FOREIGN KEY (message_id) REFERENCES messages(message_id) ON DELETE CASCADE
 );
 
 `;
