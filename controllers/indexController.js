@@ -36,8 +36,14 @@ const validateUser = [
     // .isLength({min: 1, max: 30}),
 ]
 
-function getIndexPage(req, res, next) {
-    res.render('sign-up', { user: req.user })
+async function getIndexPage(req, res, next) {
+    try {
+        const messages = await db.getAllMessages();
+        console.log('USER FROM GET INDEX', req.user)
+        res.render('index', { user: req.user, messages: messages })
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 function getLogin(req, res, next) {

@@ -39,7 +39,7 @@ app.use(session({
 }))
 
 app.use(passport.session());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(assetsPath));
 
 app.use((req, res, next) => {

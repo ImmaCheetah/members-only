@@ -1,6 +1,7 @@
 <html lang="en">
-  <%- include('../partials/head') %>
-  <body>
+    <%- include('../partials/head') %>
+    <body>
+      <%- include('../partials/sign-up') %>
       <% if (messages && messages.length > 0) { %>
         <h1>Messages</h1>  
         <% messages.forEach(message => { %>
@@ -33,5 +34,6 @@
       <% } %>
       <a href="/change-role">Become Member</a>
       <a href="/logout">Logout</a>
-  </body>
+
+    </body>
 </html>
