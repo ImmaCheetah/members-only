@@ -5,35 +5,34 @@
       <% if (messages && messages.length > 0) { %>
         <h1>Messages</h1>  
         <% messages.forEach(message => { %>
+
           <article class="message-div">
-            <p>
-              <% if (locals.user.user_role === 'member' || locals.user.user_role === 'admin') { %>
-                <%= message.first_name %>
-                <%= message.timestamp %>
-              <% } else { %>
-                Anonymous
-              <% } %> 
-            </p>
-            <p><%= message.title %></p>
-            <p><%= message.text %></p>
-            <p><%= message.user_role %></p>
-            <p><%= message.message_id %></p>
-            <% if (locals.user.user_role === 'admin') { %>
-            <form action="messages/delete/<%= message.message_id %>" method="POST">
-              <button type="submit">Delete</button>
-            </form>
+            <% if (!locals.user) { %>
+              <p><%= message.title %></p>
+              <p><%= message.text %></p>
+            <% } else if (locals.user.user_role === 'member' || locals.user.user_role === 'admin') { %>
+              <p><%= message.first_name %></p>
+              <p><%= message.timestamp %></p>
+              <p><%= message.title %></p>
+              <p><%= message.text %></p>
+              <p><%= message.user_role %></p>
+              <p><%= message.message_id %></p>
+              <form action="messages/delete/<%= message.message_id %>" method="POST">
+                <button type="submit">Delete</button>
+              </form>
             <% } %>
           </article>
+
         <% }) %>
+        
       <% } else { %>
         <h1>No Messages</h1>
       <% } %>
 
       <% if (locals.user) {%>
         <a href="messages/new-message">Create New Message</a>
+        <a href="/logout">Logout</a>
       <% } %>
       <a href="/change-role">Become Member</a>
-      <a href="/logout">Logout</a>
-
     </body>
 </html>

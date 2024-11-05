@@ -15,8 +15,7 @@
             </p>
             <p><%= message.title %></p>
             <p><%= message.text %></p>
-            <p><%= message.user_role %></p>
-            <p><%= message.message_id %></p>
+
             <% if (locals.user.user_role === 'admin') { %>
             <form action="messages/delete/<%= message.message_id %>" method="POST">
               <button type="submit">Delete</button>
@@ -30,8 +29,8 @@
 
       <% if (locals.user) {%>
         <a href="messages/new-message">Create New Message</a>
+        <a href="/logout">Logout</a>
       <% } %>
       <a href="/change-role">Become Member</a>
-      <a href="/logout">Logout</a>
   </body>
 </html>
