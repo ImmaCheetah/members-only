@@ -6,6 +6,7 @@ const passport = require("passport");
 const indexRouter = Router();
 
 indexRouter.get('/', indexController.getIndexPage)
+indexRouter.get('/sign-up', indexController.getSignUp)
 indexRouter.get('/login', indexController.getLogin)
 indexRouter.get('/change-role', isAuth, indexController.getBecomeMember)
 indexRouter.get('/logout', indexController.getLogout)

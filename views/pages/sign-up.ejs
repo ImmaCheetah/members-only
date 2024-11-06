@@ -7,12 +7,11 @@
 </head>
 <body>
     <% if (locals.user) {%>
-        <h1>WELCOME BACK <%= user.first_name %></h1>
-        <a href="/log-out">LOG OUT</a>
+        <h1>Welcome <%= user.first_name %></h1>
       <% } else { %>
 
     <form action="/" method="POST">
-        <h1>hello</h1>
+        <h1>Sign Up</h1>
         <label for="firstName">First name:</label>
         <input type="text" name="firstName" required value="<%= locals.firstName %>">
         <label for="lastName">Last name:</label>
@@ -32,7 +31,9 @@
             </ul>
         <% } %>
     </form>
-    <a href="/login">Login</a>
+    <p>
+        Already have an account? <a href="/login">Login</a>
+    </p>
     <% } %>
 </body>
 </html>

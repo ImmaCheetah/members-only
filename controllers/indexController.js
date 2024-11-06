@@ -50,6 +50,10 @@ function getLogin(req, res, next) {
     res.render('login')
 }
 
+function getSignUp(req, res, next) {
+    res.render('sign-up')
+}
+
 function getLogout(req, res, next) {
     req.logout((err) => {
         if (err) {
@@ -123,6 +127,7 @@ async function createUserPost(req, res, next) {
 module.exports = {
     getIndexPage,
     getLogin,
+    getSignUp,
     getLogout,
     getBecomeMember,
     addMemberRole,
