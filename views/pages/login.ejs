@@ -1,13 +1,16 @@
 <html lang="en">
     <%- include('../partials/head') %>
     <body>
-        <form action="/login" method="POST">
-            <h1>Login</h1>
-            <label for="email">Email:</label>
-            <input type="email" name="email" id="email">
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password">
-            <button type="submit">Log In</button>
-        </form>
+        <main>
+            <form action="/login" method="POST">
+                <h1>Login</h1>
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password">
+                <button type="submit">Log In</button>
+            </form>
+        </main>
+        <%- include('../partials/footer') %>
     </body>
 </html>

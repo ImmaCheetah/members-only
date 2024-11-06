@@ -1,39 +1,36 @@
-<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
-</head>
-<body>
-    <% if (locals.user) {%>
-        <h1>Welcome <%= user.first_name %></h1>
-      <% } else { %>
-
-    <form action="/" method="POST">
-        <h1>Sign Up</h1>
-        <label for="firstName">First name:</label>
-        <input type="text" name="firstName" required value="<%= locals.firstName %>">
-        <label for="lastName">Last name:</label>
-        <input type="text" name="lastName" required value="<%= locals.lastName %>">
-        <label for="email">Email:</label>
-        <input type="email" name="email" required value="<%= locals.email %>">
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required>
-        <label for="confirmPassword">Confirm Password:</label>
-        <input type="password" name="confirmPassword" id="confirmPassword" required>
-        <button type="submit">Submit</button>
-        <% if (locals.errors) {%>
-            <ul>
-                <% errors.forEach(function(error) { %>
-                <li><%= error.msg %></li>
-                <% }); %>
-            </ul>
-        <% } %>
-    </form>
-    <p>
-        Already have an account? <a href="/login">Login</a>
-    </p>
-    <% } %>
-</body>
+    <%- include('../partials/head') %>
+    <body>
+        <main>
+            <% if (locals.user) {%>
+                <h1>Welcome <%= user.first_name %></h1>
+            <% } else { %>
+            <form action="/" method="POST">
+                <h1>Sign Up</h1>
+                <label for="firstName">First name:</label>
+                <input type="text" name="firstName" required value="<%= locals.firstName %>">
+                <label for="lastName">Last name:</label>
+                <input type="text" name="lastName" required value="<%= locals.lastName %>">
+                <label for="email">Email:</label>
+                <input type="email" name="email" required value="<%= locals.email %>">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" required>
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" name="confirmPassword" id="confirmPassword" required>
+                <button type="submit">Submit</button>
+                <% if (locals.errors) {%>
+                    <ul>
+                        <% errors.forEach(function(error) { %>
+                        <li><%= error.msg %></li>
+                        <% }); %>
+                    </ul>
+                <% } %>
+            </form>
+            <p>
+                Already have an account? <a href="/login">Login</a>
+            </p>
+            <% } %>
+        </main>
+        <%- include('../partials/footer') %>
+    </body>
 </html>

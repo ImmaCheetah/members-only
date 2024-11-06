@@ -1,43 +1,43 @@
 <html lang="en">
     <%- include('../partials/head') %>
     <body>
-      <% if (locals.user) {%>
-        <a href="messages/new-message">Create New Message</a>
-        <a href="/logout">Logout</a>
-        <a href="/change-role">Become Member</a>
-      <% } %>
-      
-      <% if (!locals.user) {%>
-        <p>Sign up to create new messages and become a member</p>
-        <a href="/sign-up">Sign Up</a>
-        <a href="/login">Login</a>
-      <% } %>
-
-      <% if (messages && messages.length > 0) { %>
-        <h1>Messages</h1>  
-        <% messages.forEach(message => { %>
-
-          <article class="message-div">
-            <% if (!locals.user) { %>
-              <p><%= message.title %></p>
-              <p><%= message.text %></p>
-            <% } else if (locals.user.user_role === 'member' || locals.user.user_role === 'admin') { %>
-              <p><%= message.first_name %></p>
-              <p><%= message.timestamp %></p>
-              <p><%= message.title %></p>
-              <p><%= message.text %></p>
-              <p><%= message.user_role %></p>
-              <p><%= message.message_id %></p>
-              <form action="messages/delete/<%= message.message_id %>" method="POST">
-                <button type="submit">Delete</button>
-              </form>
-            <% } %>
-          </article>
-
-        <% }) %>
+      <main>
+        <% if (locals.user) {%>
+          <a href="messages/new-message">Create New Message</a>
+          <a href="/change-role">Become Member</a>
+          <a href="/logout">Logout</a>
+        <% } %>
         
-      <% } else { %>
-        <h1>No Messages</h1>
-      <% } %>
+        <% if (!locals.user) {%>
+          <p>Sign up to create new messages and become a member</p>
+          <a href="/sign-up">Sign Up</a>
+          <a href="/login">Login</a>
+        <% } %>
+        <% if (messages && messages.length > 0) { %>
+          <h1>Messages</h1>
+          <% messages.forEach(message => { %>
+            <article class="message-div">
+              <% if (!locals.user) { %>
+                <p><%= message.title %></p>
+                <p><%= message.text %></p>
+              <% } else if (locals.user.user_role === 'member' || locals.user.user_role === 'admin') { %>
+                <p><%= message.first_name %></p>
+                <p><%= message.timestamp %></p>
+                <p><%= message.title %></p>
+                <p><%= message.text %></p>
+                <p><%= message.user_role %></p>
+                <p><%= message.message_id %></p>
+                <form action="messages/delete/<%= message.message_id %>" method="POST">
+                  <button type="submit">Delete</button>
+                </form>
+              <% } %>
+            </article>
+          <% }) %>
+        
+        <% } else { %>
+          <h1>No Messages</h1>
+        <% } %>
+      </main>
+      <%- include('../partials/footer') %>
     </body>
 </html>
