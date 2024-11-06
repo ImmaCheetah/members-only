@@ -11,14 +11,20 @@
           <h1>Messages</h1>
           <% messages.forEach(message => { %>
             <article class="message-div">
-              <p>
-                <% if (locals.user.user_role === 'member' || locals.user.user_role === 'admin') { %>
-                  <%= message.first_name %>
-                  <%= message.timestamp %>
-                <% } else { %>
-                  Anonymous
-                <% } %>
-              </p>
+              <% if (locals.user.user_role === 'member' || locals.user.user_role === 'admin') { %>
+                <p><%= message.first_name %></p>
+                <p>
+                  <%= message.timestamp.toLocaleDateString('en-US', {
+                    weekday: 'short',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    }) %>
+                  <%= message.timestamp.toLocaleTimeString() %>
+                </p>
+              <% } else { %>
+                Anonymous
+              <% } %>
               <p><%= message.title %></p>
               <p><%= message.text %></p>
               <% if (locals.user.user_role === 'admin') { %>

@@ -10,23 +10,33 @@ const rolePasswordErr = 'Wrong password'
 
 
 const validateUser = [
-    body('firstName').trim()
-    .isAlpha().withMessage(`First name ${alphaErr}`)
+    body('firstName')
+    .trim()
+    .isAlpha()
+    .withMessage(`First name ${alphaErr}`)
     .isLength({min: 1, max: 30}).withMessage(`First name ${lengthErr}`),
-    body('lastName').trim()
-    .isAlpha().withMessage(`Last name ${alphaErr}`)
-    .isLength({min: 1, max: 30}).withMessage(`Last name ${lengthErr}`),
-    body('email').trim()
-    .isEmail().withMessage(`Email ${emailErr}`)
-    .isLength({min: 1, max: 30}),
+    body('lastName')
+    .trim()
+    .isAlpha()
+    .withMessage(`Last name ${alphaErr}`)
+    .isLength({min: 1, max: 30})
+    .withMessage(`Last name ${lengthErr}`),
+    body('email')
+    .trim()
+    .isEmail()
+    .withMessage(`Email ${emailErr}`)
+    .isLength({min: 1, max: 30})
+    .withMessage(`Email ${lengthErr}`),
     // .custom(async value => {
     //     const user = await db.findUserByEmail(value);
     //     if (user) {
     //       throw new Error('E-mail already in use');
     //     }
     // }),
-    body('password').trim()
-    .isStrongPassword().withMessage('Password does not meet strength requirements')
+    body('password')
+    .trim()
+    .isStrongPassword()
+    .withMessage('Password does not meet strength requirements')
     .isLength({min: 1, max: 30}),
     body('confirmPassword').custom((value, { req }) => {
         return value === req.body.password;

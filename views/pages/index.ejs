@@ -18,15 +18,21 @@
           <% messages.forEach(message => { %>
             <article class="message-div">
               <% if (!locals.user) { %>
-                <p><%= message.title %></p>
-                <p><%= message.text %></p>
+                <p class="message title"><%= message.title %></p>
+                <p class="message text"><%= message.text %></p>
               <% } else if (locals.user.user_role === 'member' || locals.user.user_role === 'admin') { %>
-                <p><%= message.first_name %></p>
-                <p><%= message.timestamp %></p>
-                <p><%= message.title %></p>
-                <p><%= message.text %></p>
-                <p><%= message.user_role %></p>
-                <p><%= message.message_id %></p>
+                <p class="message name"><%= message.first_name %></p>
+                <p class="message date">
+                  <%= message.timestamp.toLocaleDateString('en-US', {
+                  weekday: 'short',
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                  }) %>
+                  <%= message.timestamp.toLocaleTimeString() %>
+                </p>
+                <p class="message title"><%= message.title %></p>
+                <p class="message text"><%= message.text %></p>
                 <form action="messages/delete/<%= message.message_id %>" method="POST">
                   <button type="submit">Delete</button>
                 </form>
