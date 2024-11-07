@@ -1,0 +1,13 @@
+<html>
+  <%- include('../partials/head') %>
+  <body>
+      <main>
+        <article>
+          <h1 class="error">Error: <%= error.statusCode %> <%= error.name %></h1>
+          <h2><%= error.message %></h2>
+          <p>Head back to the main page</p>
+          <a href="/">Home</a>
+        </article>
+      </main>
+  </body>
+</html>

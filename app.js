@@ -9,7 +9,7 @@ const session = require('express-session');
 const passport = require('passport');
 const path = require("node:path");
 const pool = require('./db/pool');
-const LocalStrategy = require('passport-local').Strategy;
+const CustomError = require("./helper/CustomError");
 const pgStore = require('connect-pg-simple')(session);
 
 // Initialize app
@@ -42,6 +42,7 @@ app.use(passport.session());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(assetsPath));
 
+
 app.use((req, res, next) => {
   console.log(req.session)
   console.log(req.user)
@@ -50,5 +51,16 @@ app.use((req, res, next) => {
 
 app.use('/', indexRouter);
 app.use('/messages', messageRouter);
+
+app.use((req, res, next) => {
+  next(
+      new CustomError('Page Not Found', 'The page you are looking for does not exist', 404)
+  )
+})
+
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(err.statusCode || 500).render('error', {error: err});
+});
 
 app.listen(process.env.PORT, () => console.log('App running on port', PORT));

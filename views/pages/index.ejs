@@ -18,6 +18,7 @@
           <% messages.forEach(message => { %>
             <article class="message-div">
               <% if (!locals.user) { %>
+                <p class="message name">Anonymous</p>
                 <p class="message title"><%= message.title %></p>
                 <p class="message text"><%= message.text %></p>
               <% } else if (locals.user.user_role === 'member' || locals.user.user_role === 'admin') { %>
@@ -33,9 +34,11 @@
                 </p>
                 <p class="message title"><%= message.title %></p>
                 <p class="message text"><%= message.text %></p>
-                <form action="messages/delete/<%= message.message_id %>" method="POST">
-                  <button type="submit">Delete</button>
-                </form>
+                <% if (locals.user.user_role === 'admin') { %>
+                  <form action="messages/delete/<%= message.message_id %>" method="POST">
+                    <button type="submit">Delete</button>
+                  </form>
+                <% } %>
               <% } %>
             </article>
           <% }) %>
