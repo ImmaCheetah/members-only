@@ -6,8 +6,14 @@ const { body, validationResult } = require("express-validator");
 const alphaErr = 'must contain only letters'
 const lengthErr = 'must contain between 1 and 30 characters'
 const emailErr = 'must be in correct format'
-const rolePasswordErr = 'Wrong password'
 
+const validateLogin = [
+    body('email')
+    .trim()
+    .isEmail()
+    .withMessage(`Email ${emailErr}`)
+    .isLength({min: 1, max: 30})
+]
 
 const validateUser = [
     body('firstName')
@@ -57,7 +63,7 @@ async function getIndexPage(req, res, next) {
 }
 
 function getLogin(req, res, next) {
-    res.render('login')
+    res.render('login', {failureMessage: req.session.messages})
 }
 
 function getSignUp(req, res, next) {
@@ -143,4 +149,5 @@ module.exports = {
     addMemberRole,
     createUserPost,
     validateUser,
+    validateLogin
 }
