@@ -159,5 +159,6 @@ form {
 }
 
 section {
+  height: 50rem;
   overflow: scroll;
 }
