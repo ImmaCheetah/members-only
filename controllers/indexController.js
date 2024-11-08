@@ -7,14 +7,6 @@ const alphaErr = 'must contain only letters'
 const lengthErr = 'must contain between 1 and 30 characters'
 const emailErr = 'must be in correct format'
 
-const validateLogin = [
-    body('email')
-    .trim()
-    .isEmail()
-    .withMessage(`Email ${emailErr}`)
-    .isLength({min: 1, max: 30})
-]
-
 const validateUser = [
     body('firstName')
     .trim()
@@ -148,6 +140,5 @@ module.exports = {
     getBecomeMember,
     addMemberRole,
     createUserPost,
-    validateUser,
-    validateLogin
+    validateUser
 }

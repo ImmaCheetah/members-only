@@ -13,7 +13,7 @@ indexRouter.get('/logout', indexController.getLogout)
 
 
 indexRouter.post('/', validateUser, indexController.createUserPost)
-indexRouter.post('/login', validateLogin, passport.authenticate("local", {
+indexRouter.post('/login', passport.authenticate("local", {
   failureRedirect: "/login",
   failureMessage: true,
   successRedirect: "/messages"
