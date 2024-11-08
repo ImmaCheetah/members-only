@@ -157,3 +157,7 @@ form {
   flex-direction: column;
   width: 15rem;
 }
+
+section {
+  overflow: scroll;
+}

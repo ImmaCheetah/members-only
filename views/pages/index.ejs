@@ -15,32 +15,34 @@
         <% } %>
         <% if (messages && messages.length > 0) { %>
           <h1>Messages</h1>
-          <% messages.forEach(message => { %>
-            <article class="message-div">
-              <% if (!locals.user) { %>
-                <p class="message name">Anonymous</p>
-                <p class="message title"><%= message.title %></p>
-                <p class="message text"><%= message.text %></p>
-              <% } else if (locals.user.user_role === 'member' || locals.user.user_role === 'admin') { %>
-                <p class="message name"><%= message.first_name %></p>
-                <p class="message date">
-                  <%= message.timestamp.toLocaleDateString('en-US', {
-                  weekday: 'short',
-                  year: 'numeric',
-                  month: 'short',
-                  day: 'numeric',
-                  }) %>
-                  <%= message.timestamp.toLocaleTimeString() %>
-                </p>
-                <p class="message title"><%= message.title %></p>
-                <p class="message text"><%= message.text %></p>
-                <% if (locals.user.user_role === 'admin') { %>
-                  <form action="messages/delete/<%= message.message_id %>" method="POST">
-                    <button type="submit">Delete</button>
-                  </form>
+          <section>
+            <% messages.forEach(message => { %>
+              <article class="message-div">
+                <% if (!locals.user) { %>
+                  <p class="message name">Anonymous</p>
+                  <p class="message title"><%= message.title %></p>
+                  <p class="message text"><%= message.text %></p>
+                <% } else if (locals.user.user_role === 'member' || locals.user.user_role === 'admin') { %>
+                  <p class="message name"><%= message.first_name %></p>
+                  <p class="message date">
+                    <%= message.timestamp.toLocaleDateString('en-US', {
+                    weekday: 'short',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    }) %>
+                    <%= message.timestamp.toLocaleTimeString() %>
+                  </p>
+                  <p class="message title"><%= message.title %></p>
+                  <p class="message text"><%= message.text %></p>
+                  <% if (locals.user.user_role === 'admin') { %>
+                    <form action="messages/delete/<%= message.message_id %>" method="POST">
+                      <button type="submit">Delete</button>
+                    </form>
+                  <% } %>
                 <% } %>
-              <% } %>
-            </article>
+              </article>
+          </section>
           <% }) %>
         
         <% } else { %>
