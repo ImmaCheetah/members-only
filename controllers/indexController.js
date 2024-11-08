@@ -34,7 +34,7 @@ const validateUser = [
     body('password')
     .trim()
     .isStrongPassword()
-    .withMessage('Password does not meet strength requirements')
+    .withMessage('Password needs: \n - 8 characters \n - 1 capital letter \n - 1 number \n - 1 special character')
     .isLength({min: 1, max: 30}),
     body('confirmPassword').custom((value, { req }) => {
         return value === req.body.password;
