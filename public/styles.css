@@ -134,6 +134,7 @@ body {
   border: solid 1px black;
   padding: 1rem;
   width: 25rem;
+  margin-top: 0.4rem;
 }
 
 .name {

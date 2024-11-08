@@ -24,13 +24,13 @@ const validateUser = [
     .isEmail()
     .withMessage(`Email ${emailErr}`)
     .isLength({min: 1, max: 30})
-    .withMessage(`Email ${lengthErr}`),
-    // .custom(async value => {
-    //     const user = await db.findUserByEmail(value);
-    //     if (user) {
-    //       throw new Error('E-mail already in use');
-    //     }
-    // }),
+    .withMessage(`Email ${lengthErr}`)
+    .custom(async value => {
+        const user = await db.findUserByEmail(value);
+        if (user) {
+            throw new Error('E-mail already in use');
+        }
+    }),
     body('password')
     .trim()
     .isStrongPassword()
@@ -46,11 +46,12 @@ const validateUser = [
 
 async function getIndexPage(req, res, next) {
     try {
+        // const user = await db.findUserByEmail('john@gmail.com');
+        // console.log(user)
         const messages = await db.getAllMessages();
-        console.log('USER FROM GET INDEX', req.user)
         res.render('index', { user: req.user, messages: messages })
     } catch (error) {
-        console.log(error)
+        next(new Error ('Could not get home page'))
     }
 }
 
@@ -73,24 +74,25 @@ function getLogout(req, res, next) {
 
 function getBecomeMember(req, res, next) {
     res.render('membership')
-    console.log(res.body);
 }
 
 async function addMemberRole(req, res, next) {
-    const memberPassword = process.env.MEMBER_PWD;
-    const adminPassword = process.env.ADMIN_PWD;  
-
-    console.log('PASSWORD IN FORM AND ID', req.body.rolePassword, req.user.user_id)
-    console.log('MEMBER RADIO', req.body.role)
-    if (req.body.role === 'member' && req.body.rolePassword === memberPassword) {
-        await db.updateRole(req.user.user_id, 'member');
-        res.redirect('messages')
-    } else if (req.body.role === 'admin' && req.body.rolePassword === adminPassword) {
-        await db.updateRole(req.user.user_id, 'admin');
-        res.redirect('messages')
-    } else {
-        console.log('wrong membership password')
-        res.render('membership', {error: 'Wrong password'})
+    try {
+        const memberPassword = process.env.MEMBER_PWD;
+        const adminPassword = process.env.ADMIN_PWD;  
+    
+        if (req.body.role === 'member' && req.body.rolePassword === memberPassword) {
+            await db.updateRole(req.user.user_id, 'member');
+            res.redirect('messages')
+        } else if (req.body.role === 'admin' && req.body.rolePassword === adminPassword) {
+            await db.updateRole(req.user.user_id, 'admin');
+            res.redirect('messages')
+        } else {
+            console.log('wrong membership password')
+            res.render('membership', {error: 'Wrong password'})
+        }   
+    } catch (error) {
+        next(new Error ('Could not add role'))
     }
 }
 
@@ -127,7 +129,7 @@ async function createUserPost(req, res, next) {
 
         res.redirect('/login');
     } catch (error) {
-        next(error);
+        next(new Error ('Could not create user'))
     }
 
 }

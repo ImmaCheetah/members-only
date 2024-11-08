@@ -24,7 +24,7 @@ async function getMessages(req, res, next) {
 
     res.render('messages', { user: req.user, messages: messages });
   } catch (error) {
-    console.log(error)
+    next(new Error ('Could not get message page'))
   }
 }
 
@@ -37,7 +37,6 @@ async function postCreateMessage(req, res, next) {
     const {title, message} = req.body;
     const userId = req.user.user_id;
     const errors = validationResult(req);
-    console.log('VALIDATION ERRORS', errors)
 
     // check for errors and render page 
     // with errors and name fields
@@ -55,7 +54,7 @@ async function postCreateMessage(req, res, next) {
     await db.postMessage(title, message, userId)
     res.redirect('/messages');
   } catch (error) {
-    console.log(error)
+    next(new Error ('Could not create message'))
   }
 }
 
@@ -67,7 +66,7 @@ async function postDeleteMessage(req, res, next) {
     await db.deleteMessage(messageId);
     res.redirect('/messages')
   } catch (error) {
-    console.log('delete error', error)
+    next(new Error ('Could not delete message'))
   }
 }
 
