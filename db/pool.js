@@ -13,4 +13,4 @@ module.exports = new Pool({
     connectionString: process.env.REMOTE_CONNECTION_STRING,
 });
 
-module.exports = pool;
+// module.exports = pool;
