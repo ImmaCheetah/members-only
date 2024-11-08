@@ -22,14 +22,14 @@ async function getMessages(req, res, next) {
     const messages = await db.getAllMessages();
     // console.log('BODY', req.params)
 
-    res.render('messages', { user: req.user, messages: messages });
+    res.render('messages', { user: req.user, messages: messages, title: 'Messages' });
   } catch (error) {
     next(new Error ('Could not get message page'))
   }
 }
 
 function getCreateMessage(req, res, next) {
-  res.render('createMessage');
+  res.render('createMessage', {title: 'New Message'});
 }
 
 async function postCreateMessage(req, res, next) {

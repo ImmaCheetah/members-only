@@ -49,18 +49,18 @@ async function getIndexPage(req, res, next) {
         // const user = await db.findUserByEmail('john@gmail.com');
         // console.log(user)
         const messages = await db.getAllMessages();
-        res.render('index', { user: req.user, messages: messages })
+        res.render('index', { user: req.user, messages: messages, title: 'Home' })
     } catch (error) {
         next(new Error ('Could not get home page'))
     }
 }
 
 function getLogin(req, res, next) {
-    res.render('login', {failureMessage: req.session.messages})
+    res.render('login', {failureMessage: req.session.messages, title: 'Login'})
 }
 
 function getSignUp(req, res, next) {
-    res.render('sign-up')
+    res.render('sign-up', {title: 'Sign Up'})
 }
 
 function getLogout(req, res, next) {
@@ -73,7 +73,7 @@ function getLogout(req, res, next) {
 }
 
 function getBecomeMember(req, res, next) {
-    res.render('membership')
+    res.render('membership', {title: 'Change Role'})
 }
 
 async function addMemberRole(req, res, next) {
