@@ -43,12 +43,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(assetsPath));
 
 
-app.use((req, res, next) => {
-  console.log(req.session)
-  console.log(req.user)
-  next()
-})
-
 app.use('/', indexRouter);
 app.use('/messages', messageRouter);
 

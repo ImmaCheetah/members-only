@@ -9,7 +9,7 @@ const msgLengthErr = 'must contain between 1 and 250 characters'
 const validateMessage = [
   body('title')
     .trim()
-    .isAlpha()
+    .matches(/^[A-Za-z ]+$/)
     .withMessage(`Title ${alphaErr}`)
     .isLength({min: 1, max: 20}).withMessage(`Title ${titleLengthErr}`),
   body('message')
@@ -59,9 +59,7 @@ async function postCreateMessage(req, res, next) {
 }
 
 async function postDeleteMessage(req, res, next) {
-  console.log('delete controller reached')
   try {
-    console.log('MESSAGE ID', req.params.messageId)
     const {messageId} = req.params;
     await db.deleteMessage(messageId);
     res.redirect('/messages')

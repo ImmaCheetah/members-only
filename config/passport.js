@@ -9,17 +9,14 @@ const customFields = {
 }
 
 const verifyCallback = async (username, password, done) => {
-  console.log('Username and pw in verify callback', username, password)
   try {
     const { rows } = await pool.query("SELECT * FROM users WHERE email = $1", [username]);
     const user = rows[0];
-    console.log('im in verify callback')
     if (!user) {
       return done(null, false, { message: "Incorrect username" });
     }
     
     const match = await bcrypt.compare(password, user.password);
-    console.log('match value', match)
     if (match) {
       return done(null, user);
     } else {
@@ -37,7 +34,6 @@ const strategy = new LocalStrategy(customFields, verifyCallback);
 passport.use(strategy);
   
 passport.serializeUser((user, done) => {
-  console.log('serialize user', user)
   done(null, user.user_id);
 });
 
